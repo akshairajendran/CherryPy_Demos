@@ -9,7 +9,11 @@ import cherrypy
 class StringGenerator(object):
     @cherrypy.expose
     def index(self):
-        return file('index08.html')
+        return file('public/html/index08.html')
+
+    @cherrypy.expose
+    def display(self):
+        return cherrypy.session['mystring']
 
 class StringGeneratorWebService(object):
     exposed = True
@@ -27,7 +31,7 @@ class StringGeneratorWebService(object):
         cherrypy.session['mystring'] = another_string
 
     def DELETE(self):
-        cherrypy.session.pop('mystring', None)
+        cherrypy.session['mystring'] = ''
 
 if __name__ == '__main__':
     conf = {
